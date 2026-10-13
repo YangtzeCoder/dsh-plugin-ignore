@@ -55,15 +55,35 @@ secrets.env
 
 ## 安装与卸载
 
-它已经是一个 **bundle**（`package.json` 里 `dsh.bundle.patch` 指向 `cordis.patch.yml`）：
+它已经是一个 **bundle**（`package.json` 里 `dsh.bundle.patch` 指向 `cordis.patch.yml`）。
+用 CLI 装进 `desktop` profile：
 
-```
-plugin_manager install_bundle  target = D:\ai-project\dsh-plugin-ignore
+```bash
+dsh plugin --profile desktop add D:\ai-project\dsh-plugin-ignore
 ```
 
-安装会以 `link:` 方式写进 profile 依赖并把 `dsh-plugin-ignore` 加进 bundle 列表，
-所以改代码不用重新安装，重新加载条目即可。
-卸载：`plugin_manager remove_bundle target = dsh-plugin-ignore`。
+- `dsh plugin --profile <name> <args>` 就是把 `<args>` 转给 profile 目录里的 pnpm，
+  所以 `add` / `remove` / `install` 都是 pnpm 语义；相对路径按**执行命令时所在的目录**解析。
+- 本地目录只有绝对路径才稳妥（Web 插件页也只接受绝对路径），`link:` 写法同样以路径为准。
+- `desktop` 是桌面客户端自己的 profile，比别的 profile 多两道限制：先**启动一次桌面版 DSH**
+  （由它初始化 `$DSH_HOME/profiles/desktop/`），再**完全退出客户端**，然后才能跑上面的命令。
+  客户端还在运行时它锁着 profile 的 `package.json`；而 profile 尚未初始化时，
+  CLI 会直接报错让你先去打开一次桌面版。
+- 装完 pnpm 会把本地目录记录成 `link:` 依赖写进 profile 的 `package.json`，
+  并把 `dsh-plugin-ignore` 追加进 `dsh.profile.bundles`；因为是 link，改代码不用重新安装。
+- 新装的 bundle 默认选中。`desktop` 与 `web` 一样是实时重载的组合，装完通常无需重启；
+  替换**已装包**的代码要重启 DSH，才能加载新的 JS 模块（只重载条目不够）。
+- `name` 换成其他 profile（`web`、`headless`、`sdk`、自定义名）就装到那边。
+
+卸载：
+
+```bash
+dsh plugin --profile desktop remove dsh-plugin-ignore
+```
+
+或者用插件管理（Web 插件页 / `plugin_manager`：`install_bundle target = D:\ai-project\dsh-plugin-ignore`、
+`remove_bundle target = dsh-plugin-ignore`），两条路做的是同一件事。
+注意**没有启用 HMR 的 profile** 不能卸载正在被它自己使用的包，要先停掉进程再卸。
 
 ## 已知限制
 
