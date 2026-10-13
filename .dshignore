@@ -1,0 +1,9 @@
+# 本工作区（dsh-plugin-ignore 自己）的规则。语法见 README。
+#
+# 前四条与 provider 自带的默认排除重复，列在这里只是表明意图；
+# *.log 是本文件真正新增的一条（文件级规则，任意深度生效）。
+node_modules
+dist/
+coverage
+.turbo
+*.log
