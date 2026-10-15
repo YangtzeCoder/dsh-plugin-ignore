@@ -1,9 +1,9 @@
-# dsh-plugin-ignore 作为一个 bundle，只做一件事：插入自己的插件条目。
+# @yangtzecoder/dsh-plugin-ignore 作为一个 bundle，只做一件事：插入自己的插件条目。
 # 安装方式（任选其一）：
-#   - DSH 插件管理页面 / plugin_manager install_bundle，target 传本目录绝对路径
-#   - 手动在 profile 的 package.json 加 link 依赖后在 cordis.patch.yml 插入同样的条目
+#   - dsh plugin --profile desktop add @yangtzecoder/dsh-plugin-ignore
+#   - DSH 插件管理页面 / plugin_manager install_bundle，target 传包名或本目录绝对路径
 - insert:
     - id: dsh-plugin-ignore
-      name: 'dsh-plugin-ignore'
+      name: '@yangtzecoder/dsh-plugin-ignore'
       config:
         ignoreFile: .dshignore

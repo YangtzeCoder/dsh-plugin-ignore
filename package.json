@@ -1,7 +1,16 @@
 {
-  "name": "dsh-plugin-ignore",
+  "name": "@yangtzecoder/dsh-plugin-ignore",
   "version": "0.1.0",
   "description": "让 @ 文件补全忽略工作区 .dshignore 里列出的目录",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YangtzeCoder/dsh-plugin-ignore.git"
+  },
+  "homepage": "https://github.com/YangtzeCoder/dsh-plugin-ignore#readme",
+  "bugs": {
+    "url": "https://github.com/YangtzeCoder/dsh-plugin-ignore/issues"
+  },
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -13,6 +22,14 @@
     "lib",
     "cordis.patch.yml"
   ],
+  "scripts": {
+    "test": "node --test",
+    "prepublishOnly": "npm test"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
