@@ -1,5 +1,5 @@
 {
-  "name": "@yangtzecoder/dsh-plugin-ignore",
+  "name": "dsh-plugin-ignore",
   "version": "0.1.0",
   "description": "让 @ 文件补全忽略工作区 .dshignore 里列出的目录",
   "license": "MIT",

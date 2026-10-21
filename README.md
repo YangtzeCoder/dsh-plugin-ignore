@@ -1,4 +1,4 @@
-# @yangtzecoder/dsh-plugin-ignore
+# dsh-plugin-ignore
 
 让 DSH 的 `@` 文件补全按工作区根的 `.dshignore` 忽略文件与目录。
 
@@ -44,7 +44,7 @@ secrets.env
 
 ```yaml
 - id: dsh-plugin-ignore
-  name: '@yangtzecoder/dsh-plugin-ignore'
+  name: 'dsh-plugin-ignore'
   config:
     ignoreFile: .dshignore     # 相对工作区根
     extraPatterns: []          # 额外规则，语法同上；排在文件规则之前，所以文件里的规则覆盖它
@@ -59,7 +59,7 @@ secrets.env
 用 CLI 装进 `desktop` profile：
 
 ```bash
-dsh plugin --profile desktop add @yangtzecoder/dsh-plugin-ignore
+dsh plugin --profile desktop add dsh-plugin-ignore
 ```
 
 - `dsh plugin --profile <name> <args>` 就是把 `<args>` 转给 profile 目录里的 pnpm，
@@ -69,7 +69,7 @@ dsh plugin --profile desktop add @yangtzecoder/dsh-plugin-ignore
   客户端还在运行时它锁着 profile 的 `package.json`；而 profile 尚未初始化时，
   CLI 会直接报错让你先去打开一次桌面版。
 - 装完 pnpm 会把包写进 profile 的 `package.json`，
-  并把 `@yangtzecoder/dsh-plugin-ignore` 追加进 `dsh.profile.bundles`。
+  并把 `dsh-plugin-ignore` 追加进 `dsh.profile.bundles`。
 - 新装的 bundle 默认选中。`desktop` 与 `web` 一样是实时重载的组合，装完通常无需重启；
   替换**已装包**的代码要重启 DSH，才能加载新的 JS 模块（只重载条目不够）。
 - `name` 换成其他 profile（`web`、`headless`、`sdk`、自定义名）就装到那边。
@@ -77,11 +77,11 @@ dsh plugin --profile desktop add @yangtzecoder/dsh-plugin-ignore
 卸载：
 
 ```bash
-dsh plugin --profile desktop remove @yangtzecoder/dsh-plugin-ignore
+dsh plugin --profile desktop remove dsh-plugin-ignore
 ```
 
-或者用插件管理（Web 插件页 / `plugin_manager`：`install_bundle target = @yangtzecoder/dsh-plugin-ignore`、
-`remove_bundle target = @yangtzecoder/dsh-plugin-ignore`），两条路做的是同一件事。
+或者用插件管理（Web 插件页 / `plugin_manager`：`install_bundle target = dsh-plugin-ignore`、
+`remove_bundle target = dsh-plugin-ignore`），两条路做的是同一件事。
 注意**没有启用 HMR 的 profile** 不能卸载正在被它自己使用的包，要先停掉进程再卸。
 
 ### 本地开发
